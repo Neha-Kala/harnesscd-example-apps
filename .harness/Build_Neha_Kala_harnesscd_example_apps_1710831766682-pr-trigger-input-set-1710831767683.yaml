@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_Neha_Kala_harnesscd_example_apps_1710831766682-pr-trigger-input-set
+  identifier: Build_Neha_Kala_harnesscd_example_apps_1710831766682prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_Neha_Kala_harnesscd_example_apps_1710831766682
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
