@@ -25,9 +25,47 @@ pipeline:
                   timeout: ""
                   type: Run
           platform:
-            arch: Amd64
             os: Linux
+            arch: Amd64
           runtime:
-            spec: {}
             type: Docker
+            spec: {}
         type: CI
+        description: ""
+    - stage:
+        name: Approval
+        identifier: Approval
+        description: ""
+        type: Approval
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: Approval
+                  identifier: Approval
+                  type: HarnessApproval
+                  timeout: 1d
+                  spec:
+                    approvalMessage: |-
+                      Please review the following information
+                      and approve the pipeline progression
+                    includePipelineExecutionHistory: true
+                    approvers:
+                      minimumCount: 1
+                      disallowPipelineExecutor: false
+                      userGroups:
+                        - Approvers
+                    isAutoRejectEnabled: false
+                    approverInputs: []
+        tags: {}
+        failureStrategies:
+          - onFailure:
+              errors: []
+              action:
+                type: Abort
+        delegateSelectors:
+          - docker-delegate
+        when:
+          pipelineStatus: Success
+        strategy:
+          parallelism: 1
